@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle at top, #0a0f2c, #020617);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.container {
+  text-align: center;
+}
+
+.logo {
+  margin-bottom: 20px;
+}
+
+.logo span {
+  color: #8b5cf6;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 35px;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  width: 380px;
+}
+
+.card h2 {
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+/* Row for side-by-side inputs */
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row input {
+  width: 50%;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.08);
+  color: white;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #8b5cf6;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #7c3aed;
+}
+
+.error {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.login-link {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.login-link a {
+  color: #8b5cf6;
+  text-decoration: none;
+}
