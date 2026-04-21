@@ -27,7 +27,6 @@
   <ul class="nav-links">
     <li><a href="#prices">Live Prices</a></li>
     <li><a href="#chart">BTC Chart</a></li>
-    <li><a href="#learn">Learn</a></li>
     <li><a href="#features">Features</a></li>
   </ul>
   <a href="Login.html"><button class="nav-cta">Get Started →</button></a>
@@ -36,7 +35,7 @@
 <main>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-orb"></div>
   <div class="hero-badge">
     <span class="badge-dot"></span>
@@ -46,7 +45,10 @@
   <p>Live prices, charts, and market intelligence for the most important digital assets — all in one clean dashboard.</p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="document.getElementById('prices').scrollIntoView({behavior:'smooth'})">Explore Markets ↓</button>
-    <button class="btn-secondary" onclick="document.getElementById('learn').scrollIntoView({behavior:'smooth'})">Start Learning</button>
+   <a href="learning-section (1).html" target="_blank">
+  <button class="btn-secondary" onclick="document.getElementById('learn').scrollIntoView({behavior:'smooth'})">Start Learning</button>
+</a>
+   
   </div>
   <div class="hero-stats">
     <div class="h-stat">
@@ -100,265 +102,6 @@
 </div>
 
 <!-- ===== LEARNING SECTION ===== -->
-<div class="learning-wrap" id="learn">
-
-  <div class="section-hd" style="max-width:none;padding:0;margin-bottom:1rem;">
-    <h2 style="font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;color:var(--white);">// Crypto Journey</h2>
-  </div>
-
-  <div class="learn-intro">
-    <p>New to crypto? Start here. These modules take you from zero to confident — one concept at a time. Track your progress and build real knowledge.</p>
-  </div>
-
-  <!-- Path indicator -->
-  <div class="learn-path">
-    <div class="path-step active">
-      <div class="ps-num">1</div>
-      <span>Foundations</span>
-    </div>
-    <div class="path-connector"></div>
-    <div class="path-step">
-      <div class="ps-num">2</div>
-      <span>Trading</span>
-    </div>
-    <div class="path-connector"></div>
-    <div class="path-step">
-      <div class="ps-num">3</div>
-      <span>DeFi</span>
-    </div>
-    <div class="path-connector"></div>
-    <div class="path-step">
-      <div class="ps-num">4</div>
-      <span>Advanced</span>
-    </div>
-  </div>
-
-  <div class="learn-grid">
-
-    <!-- Featured card: What is Blockchain -->
-   <div class="learn-card featured">
-      <div class="lc-stripe silver"></div>
-      <div class="lc-body">
-        <div>
-          <div class="lc-top">
-            <div class="lc-icon-wrap">⛓️</div>
-            <div class="lc-badges">
-              <span class="lc-level beginner">Beginner</span>
-              <span class="lc-time">⏱ 8 min read</span>
-            </div>
-          </div>
-          <div class="lc-title">What is Blockchain Technology?</div>
-          <div class="lc-desc">Understand the distributed ledger that powers every cryptocurrency. Learn how blocks chain together to create an immutable, trustless record — and why that changes everything.</div>
-          <div class="lc-tags">
-            <span class="lc-tag">Blockchain</span>
-            <span class="lc-tag">Ledger</span>
-            <span class="lc-tag">Consensus</span>
-            <span class="lc-tag">Nodes</span>
-          </div>
-          <div class="lc-footer">
-            <div class="lc-progress-wrap">
-              <div class="lc-progress-label"><span>Progress</span><span>0%</span></div>
-              <div class="lc-bar"><div class="lc-bar-fill" style="width:0%"></div></div>
-            </div>
-            <button class="lc-action">Start → </button>
-          </div>
-        </div>
-        <!-- Interactive blockchain visual -->
-        <div class="featured-visual">
-          <div>
-            <div class="fv-label">Blockchain Visualised</div>
-            <div class="fv-chain">
-              <div class="fv-block">B#1</div>
-              <div class="fv-arrow">→</div>
-              <div class="fv-block">B#2</div>
-              <div class="fv-arrow">→</div>
-              <div class="fv-block">B#3</div>
-              <div class="fv-arrow">→</div>
-              <div class="fv-block">B#4</div>
-              <div class="fv-arrow">→</div>
-              <div class="fv-block" style="border-color:var(--c1);color:var(--c1);">B#5</div>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem;">
-            <div class="fv-row"><span class="key">Hash:</span><span class="val">0xa8f2…c391</span></div>
-            <div class="fv-row"><span class="key">Transactions:</span><span class="val">2,847 txns</span></div>
-            <div class="fv-row"><span class="key">Timestamp:</span><span class="val">Apr 08 · 14:22</span></div>
-            <div class="fv-row"><span class="key">Validator:</span><span class="val">Node 0x44f…</span></div>
-            <div class="fv-row"><span class="key">Status:</span><span class="val" style="color:var(--green);">✓ Confirmed</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="learn-card" >
-      <div class="lc-stripe bronze"></div>
-      <div class="lc-body">
-        <div class="lc-top">
-          <div class="lc-icon-wrap">₿</div>
-          <div class="lc-badges">
-            <span class="lc-level beginner">Beginner</span>
-            <span class="lc-time">⏱ 6 min</span>
-          </div>
-        </div>
-        <div class="lc-title">Bitcoin: The Original<br/>Cryptocurrency</div>
-        <div class="lc-desc">From Satoshi Nakamoto's whitepaper to a $1T asset. Learn what makes Bitcoin special, how mining works, and why its supply is capped at 21 million.</div>
-        <div class="lc-tags">
-          <span class="lc-tag">Bitcoin</span>
-          <span class="lc-tag">Mining</span>
-          <span class="lc-tag">PoW</span>
-        </div>
-        <div class="lc-footer">
-          <div class="lc-progress-wrap">
-            <div class="lc-progress-label"><span>Progress</span><span>0%</span></div>
-            <div class="lc-bar"><div class="lc-bar-fill" style="width:0%"></div></div>
-          </div>
-          <button class="lc-action">Start →</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="learn-card">
-      <div class="lc-stripe"></div>
-      <div class="lc-body">
-        <div class="lc-top">
-          <div class="lc-icon-wrap">🔐</div>
-          <div class="lc-badges">
-            <span class="lc-level beginner">Beginner</span>
-            <span class="lc-time">⏱ 7 min</span>
-          </div>
-        </div>
-        <div class="lc-title">Crypto Wallets &amp;<br/>Private Keys</div>
-        <div class="lc-desc">Hot wallets, cold wallets, seed phrases. Understand how to truly own your crypto — and why "not your keys, not your coins" is the golden rule.</div>
-        <div class="lc-tags">
-          <span class="lc-tag">Wallets</span>
-          <span class="lc-tag">Security</span>
-          <span class="lc-tag">Keys</span>
-        </div>
-        <div class="lc-footer">
-          <div class="lc-progress-wrap">
-            <div class="lc-progress-label"><span>Progress</span><span>0%</span></div>
-            <div class="lc-bar"><div class="lc-bar-fill" style="width:0%"></div></div>
-          </div>
-          <button class="lc-action">Start →</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="learn-card">
-      <div class="lc-stripe bronze"></div>
-      <div class="lc-body">
-        <div class="lc-top">
-          <div class="lc-icon-wrap">💳</div>
-          <div class="lc-badges">
-            <span class="lc-level beginner">Beginner</span>
-            <span class="lc-time">⏱ 5 min</span>
-          </div>
-        </div>
-        <div class="lc-title">How to Buy Your<br/>First Crypto</div>
-        <div class="lc-desc">Exchanges, KYC, fees, and order types. A step-by-step guide to buying Bitcoin or Ethereum safely — without getting ripped off by hidden costs.</div>
-        <div class="lc-tags">
-          <span class="lc-tag">Exchange</span>
-          <span class="lc-tag">CEX</span>
-          <span class="lc-tag">Fees</span>
-        </div>
-        <div class="lc-footer">
-          <div class="lc-progress-wrap">
-            <div class="lc-progress-label"><span>Progress</span><span>0%</span></div>
-            <div class="lc-bar"><div class="lc-bar-fill" style="width:0%"></div></div>
-          </div>
-          <button class="lc-action">Start →</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 5 -->
-    <div class="learn-card">
-      <div class="lc-stripe silver"></div>
-      <div class="lc-body">
-        <div class="lc-top">
-          <div class="lc-icon-wrap">🏦</div>
-          <div class="lc-badges">
-            <span class="lc-level intermediate">Intermediate</span>
-            <span class="lc-time">⏱ 10 min</span>
-          </div>
-        </div>
-        <div class="lc-title">DeFi: Decentralised<br/>Finance Explained</div>
-        <div class="lc-desc">Swap, lend, and earn yield — all without a bank. Explore how AMMs, liquidity pools, and smart contracts replace traditional financial intermediaries.</div>
-        <div class="lc-tags">
-          <span class="lc-tag">DeFi</span>
-          <span class="lc-tag">AMM</span>
-          <span class="lc-tag">Yield</span>
-        </div>
-        <div class="lc-footer">
-          <div class="lc-progress-wrap">
-            <div class="lc-progress-label"><span>Progress</span><span>0%</span></div>
-            <div class="lc-bar"><div class="lc-bar-fill" style="width:0%"></div></div>
-          </div>
-          <button class="lc-action">Start →</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 6 -->
-    <div class="learn-card" >
-      <div class="lc-stripe silver"></div>
-      <div class="lc-body">
-        <div class="lc-top">
-          <div class="lc-icon-wrap">📉</div>
-          <div class="lc-badges">
-            <span class="lc-level intermediate">Intermediate</span>
-            <span class="lc-time">⏱ 12 min</span>
-          </div>
-        </div>
-        <div class="lc-title">Reading Crypto<br/>Charts &amp; Indicators</div>
-        <div class="lc-desc">RSI, MACD, Bollinger Bands. Learn the fundamental tools of technical analysis and understand what charts actually tell you about market sentiment.</div>
-        <div class="lc-tags">
-          <span class="lc-tag">TA</span>
-          <span class="lc-tag">RSI</span>
-          <span class="lc-tag">MACD</span>
-        </div>
-        <div class="lc-footer">
-          <div class="lc-progress-wrap">
-            <div class="lc-progress-label"><span>Progress</span><span>0%</span></div>
-            <div class="lc-bar"><div class="lc-bar-fill" style="width:0%"></div></div>
-          </div>
-          <button class="lc-action">Start →</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 7 -->
-    <div class="learn-card">
-      <div class="lc-stripe gold"></div>
-      <div class="lc-body">
-        <div class="lc-top">
-          <div class="lc-icon-wrap">🛡️</div>
-          <div class="lc-badges">
-            <span class="lc-level advanced">Advanced</span>
-            <span class="lc-time">⏱ 9 min</span>
-          </div>
-        </div>
-        <div class="lc-title">Risk Management<br/>for Crypto Traders</div>
-        <div class="lc-desc">Position sizing, stop-losses, portfolio diversification. The unsexy truth about why most traders lose money — and the discipline framework used by professionals.</div>
-        <div class="lc-tags">
-          <span class="lc-tag">Risk</span>
-          <span class="lc-tag">Stop-Loss</span>
-          <span class="lc-tag">Portfolio</span>
-        </div>
-        <div class="lc-footer">
-          <div class="lc-progress-wrap">
-            <div class="lc-progress-label"><span>Progress</span><span>0%</span></div>
-            <div class="lc-bar"><div class="lc-bar-fill" style="width:0%"></div></div>
-          </div>
-          <button class="lc-action">Start →</button>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- end learn-grid -->
 
   <!-- Progress tracker bar -->
   <div class="lp-tracker">
@@ -383,7 +126,7 @@
   <a href="https://www.youtube.com/watch?v=6aF6p2VUORE&pp=ygUKYmxvY2tjaGFpbtIHCQnZCgGHKiGM7w%3D%3D" target="_blank" style="text-decoration:none;color:inherit;"><button class="lpt-cta">Begin Journey →</button></a>
   </div>
 
-</div><!-- end learning-wrap -->
+</div>
 
 <!-- FEATURES -->
 <div class="features-wrap" id="features">
@@ -411,17 +154,7 @@
       <div class="feat-title">Price Alerts</div>
       <div class="feat-desc">Set custom price alerts for any coin and get notified the moment they hit your target.</div>
     </div>
-    <div class="feature-card">
-      <div class="feat-icon">💼</div>
-      <div class="feat-title">Portfolio Tracker</div>
-      <div class="feat-desc">Track your holdings, monitor P&L, and visualize your allocation — all stored locally.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feat-icon">📰</div>
-      <div class="feat-title">Crypto News</div>
-      <div class="feat-desc">Stay current with the latest cryptocurrency news and market-moving headlines.</div>
-    </div>
-  </div>
+    
 </div>
 
 <!-- CTA -->
@@ -464,5 +197,31 @@
     <a href="#">API</a>
   </div>
 </footer>
+<!-- Three.js (required) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+<!-- Vanta.js -->
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<script>
+  VANTA.NET({
+    el: "#hero",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.0,
+    scaleMobile: 1.0,
+
+    // 🔥 Customize for crypto theme
+    color: 0xa098c7,        // neon cyan
+    backgroundColor: 0x0b0f1a, // dark background
+    points: 12.0,
+    maxDistance: 22.0,
+    spacing: 18.0
+  });
+</script>
+<script src="signup.js"></script>
+<script src="scope.js"></script>
 </body>
 </html>
