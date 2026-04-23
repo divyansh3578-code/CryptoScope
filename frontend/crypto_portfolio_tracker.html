@@ -1,0 +1,169 @@
+
+
+<link rel="stylesheet" href="portfolio.css">
+
+<h2 class="sr-only" style="position:absolute;left:-9999px">Crypto portfolio tracker — add coins, track live prices and profit/loss</h2>
+
+<div class="app">
+
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;flex-wrap:wrap;gap:12px">
+    <div>
+      <div style="font-size:22px;font-weight:700;letter-spacing:3px">CRYPTO<span style="color:#857bc1">FOLIO</span></div>
+      <div style="font-size:9px;color:#857bc1;letter-spacing:2px;margin-top:5px">LIVE PORTFOLIO TRACKER</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:10px;color:#857bc1;letter-spacing:1px;padding-top:4px">
+      <span id="rdot" style="width:8px;height:8px;border-radius:50%;background:#5DCAA5;display:inline-block"></span>
+      <span id="rstatus">INITIALIZING...</span>
+    </div>
+  </div>
+
+  <div id="summary" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px"></div>
+
+  <div class="glass" style="padding:20px;margin-bottom:20px">
+    <div style="font-size:9px;color:#857bc1;letter-spacing:2px;margin-bottom:16px">ADD HOLDING</div>
+    <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr auto;gap:10px;align-items:end">
+      <div>
+        <div style="font-size:9px;color:#857bc1;letter-spacing:1px;margin-bottom:6px">COIN</div>
+        <select class="form-input" id="sel-coin">
+          <option value="bitcoin">BTC — Bitcoin</option>
+          <option value="ethereum">ETH — Ethereum</option>
+          <option value="solana">SOL — Solana</option>
+          <option value="binancecoin">BNB — BNB</option>
+          <option value="ripple">XRP — XRP</option>
+          <option value="cardano">ADA — Cardano</option>
+          <option value="dogecoin">DOGE — Dogecoin</option>
+          <option value="avalanche-2">AVAX — Avalanche</option>
+          <option value="matic-network">MATIC — Polygon</option>
+          <option value="chainlink">LINK — Chainlink</option>
+          <option value="polkadot">DOT — Polkadot</option>
+          <option value="uniswap">UNI — Uniswap</option>
+        </select>
+      </div>
+      <div>
+        <div style="font-size:9px;color:#857bc1;letter-spacing:1px;margin-bottom:6px">QUANTITY</div>
+        <input class="form-input" id="inp-qty" type="number" placeholder="e.g. 0.5" min="0" step="any">
+      </div>
+      <div>
+        <div style="font-size:9px;color:#857bc1;letter-spacing:1px;margin-bottom:6px">BUY PRICE $</div>
+        <input class="form-input" id="inp-price" type="number" placeholder="e.g. 42000" min="0" step="any">
+      </div>
+      <button class="btn-add" onclick="addHolding()">+ ADD</button>
+    </div>
+    <div id="form-err" style="color:#F09595;font-size:10px;margin-top:8px;letter-spacing:0.5px;display:none"></div>
+  </div>
+
+  <div class="glass" style="padding:20px">
+    <div style="font-size:9px;color:#857bc1;letter-spacing:2px;margin-bottom:16px">MY HOLDINGS</div>
+    <div style="overflow-x:auto">
+      <table id="htable">
+        <colgroup>
+          <col style="width:15%"><col style="width:10%"><col style="width:11%"><col style="width:11%">
+          <col style="width:12%"><col style="width:12%"><col style="width:12%"><col style="width:11%"><col style="width:6%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>COIN</th><th>QTY</th><th>BUY $</th><th>NOW $</th>
+            <th>INVESTED</th><th>VALUE</th><th>P&amp;L $</th><th>P&amp;L %</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="hbody"></tbody>
+      </table>
+      <div id="empty" style="text-align:center;padding:48px 20px;color:#857bc1;font-size:10px;letter-spacing:2px;display:none">NO HOLDINGS YET — ADD YOUR FIRST COIN ABOVE</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:16px;font-size:9px;color:rgba(133,123,193,0.4);letter-spacing:1px">PRICES VIA COINGECKO — AUTO-REFRESH EVERY 60S</div>
+</div>
+<script>
+const COINS={bitcoin:{s:'BTC',n:'Bitcoin'},ethereum:{s:'ETH',n:'Ethereum'},solana:{s:'SOL',n:'Solana'},binancecoin:{s:'BNB',n:'BNB'},ripple:{s:'XRP',n:'XRP'},cardano:{s:'ADA',n:'Cardano'},dogecoin:{s:'DOGE',n:'Dogecoin'},'avalanche-2':{s:'AVAX',n:'Avalanche'},'matic-network':{s:'MATIC',n:'Polygon'},chainlink:{s:'LINK',n:'Chainlink'},polkadot:{s:'DOT',n:'Polkadot'},uniswap:{s:'UNI',n:'Uniswap'}};
+let holdings=[], prices={};
+async function load(){try{const r=await window.storage.get('pf_holdings');if(r&&r.value)holdings=JSON.parse(r.value)}catch(e){holdings=[]}}
+async function save(){try{await window.storage.set('pf_holdings',JSON.stringify(holdings))}catch(e){}}
+function f(n,d=2){return n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d})}
+function fu(n){return '$'+f(n)}
+function setStatus(text,color,pulse){
+  const d=document.getElementById('rdot'),s=document.getElementById('rstatus');
+  d.style.background=color;d.className=pulse?'pulse':'';s.textContent=text;
+}
+async function fetchPrices(){
+  setStatus('FETCHING...','#FAC775',true);
+  try{
+    const ids=Object.keys(COINS).join(',');
+    const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids='+ids+'&vs_currencies=usd');
+    if(!r.ok)throw new Error('fail');
+    prices=await r.json();
+    const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    setStatus('LIVE · '+t,'#5DCAA5',false);
+  }catch(e){
+    setStatus('OFFLINE — SHOWING COST BASIS','#F09595',false);
+  }
+  render();
+}
+function render(){
+  const body=document.getElementById('hbody');
+  const empty=document.getElementById('empty');
+  const summary=document.getElementById('summary');
+  body.innerHTML='';
+  let ti=0,tv=0;
+  const hasAny=holdings.length>0;
+  empty.style.display=hasAny?'none':'block';
+  holdings.forEach((h,i)=>{
+    const m=COINS[h.coinId]||{s:h.coinId,n:h.coinId};
+    const cp=prices[h.coinId]?.usd||0;
+    const inv=h.qty*h.buyPrice;
+    const val=h.qty*cp;
+    const pl=val-inv;
+    const pp=inv>0?(pl/inv)*100:0;
+    ti+=inv; if(cp>0)tv+=val;
+    const pc=pl>=0?'profit':'loss';
+    const bg=pl>=0?'rgba(93,202,165,0.12)':'rgba(240,149,149,0.12)';
+    const sg=pl>=0?'+':'';
+    const noP=cp===0;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td style="color:#fff;font-weight:500">${m.s} <span style="color:#857bc1;font-size:9px">${m.n}</span></td>
+      <td>${f(h.qty,h.qty<1?4:2)}</td>
+      <td>${fu(h.buyPrice)}</td>
+      <td style="color:#c0bcd8">${noP?'—':fu(cp)}</td>
+      <td>${fu(inv)}</td>
+      <td style="color:#fff">${noP?'—':fu(val)}</td>
+      <td class="${noP?'':pc}">${noP?'—':sg+fu(pl)}</td>
+      <td><span class="badge ${noP?'':pc}" style="background:${noP?'transparent':bg}">${noP?'—':sg+f(pp,1)+'%'}</span></td>
+      <td><button class="btn-del" onclick="del(${i})">✕</button></td>`;
+    body.appendChild(tr);
+  });
+  const tp=tv-ti;
+  const tpp=ti>0?(tp/ti)*100:0;
+  const pc=tp>=0?'#5DCAA5':'#F09595';
+  const sg=tp>=0?'+':'';
+  summary.innerHTML=`
+    <div class="glass metric-card"><div class="metric-label">Total Invested</div><div class="metric-value" style="color:#c0bcd8">${fu(ti)}</div></div>
+    <div class="glass metric-card"><div class="metric-label">Current Value</div><div class="metric-value" style="color:#fff">${fu(tv)}</div></div>
+    <div class="glass metric-card"><div class="metric-label">Total P&L</div><div class="metric-value" style="color:${pc}">${sg}${fu(tp)}</div></div>
+    <div class="glass metric-card"><div class="metric-label">Return</div><div class="metric-value" style="color:${pc}">${sg}${f(tpp,2)}%</div></div>`;
+}
+async function addHolding(){
+  const cid=document.getElementById('sel-coin').value;
+  const qty=parseFloat(document.getElementById('inp-qty').value);
+  const bp=parseFloat(document.getElementById('inp-price').value);
+  const err=document.getElementById('form-err');
+  if(!qty||qty<=0||!bp||bp<=0){
+    err.textContent='⚠ Enter a valid quantity and buy price.';
+    err.style.display='block'; return;
+  }
+  err.style.display='none';
+  holdings.push({coinId:cid,qty,buyPrice:bp,ts:Date.now()});
+  await save();
+  document.getElementById('inp-qty').value='';
+  document.getElementById('inp-price').value='';
+  render();
+}
+async function del(i){
+  holdings.splice(i,1);
+  await save(); render();
+}
+async function init(){
+  await load(); render(); await fetchPrices();
+  setInterval(fetchPrices,60000);
+}
+init();
+</script>

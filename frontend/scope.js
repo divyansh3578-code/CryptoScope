@@ -13,6 +13,7 @@ function pct(n) {
   if (!n && n !== 0) return '—';
   return (n >= 0 ? '+' : '') + n.toFixed(2) + '%';
 }
+
 function shortNum(n) {
   if (!n) return '—';
   if (n >= 1e12) return '$' + (n/1e12).toFixed(1) + 'T';

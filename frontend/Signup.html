@@ -1,1 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - CryptoScope</title>
+  <link rel="stylesheet" href="Signup.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="signup-container">
 
+    <!-- Logo -->
+    <h1 class="logo">Crypto<span>Scope</span></h1>
+
+    <!-- Card -->
+    <div class="signup-card">
+      <h2>Create Account</h2>
+      <p>Join the decentralized frontier</p>
+
+      <!-- Steps -->
+      <div class="steps">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <form method="POST" action="signup.php">
+
+        <!-- Name row -->
+        <div class="row">
+          <div class="field">
+            <label>First Name</label>
+            <div class="input-wrap">
+              
+              <input type="text" name="first_name" placeholder="DIVYANSH" required />
+            </div>
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <div class="input-wrap">
+              
+              <input type="text" name="last_name" placeholder="GUPTA" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Username -->
+        <div class="field">
+          <label>Username</label>
+          <div class="input-wrap">
+           
+            <input type="text" name="username" placeholder="@cryptotrader" required />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <label>Email</label>
+          <div class="input-wrap">
+            
+            <input type="email" name="email" placeholder="you@cryptoscope.io" required />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <label>Password</label>
+          <div class="input-wrap">
+            
+            <input type="password" id="pw" name="password" placeholder="Min. 8 characters" required />
+          </div>
+          <div class="strength-row">
+            <div class="seg" id="s1"></div>
+            <div class="seg" id="s2"></div>
+            <div class="seg" id="s3"></div>
+            <div class="seg" id="s4"></div>
+          </div>
+          <div class="strength-label" id="slabel">PASSWORD STRENGTH</div>
+        </div>
+
+        <!-- Confirm -->
+        <div class="field">
+          <label>Confirm Password</label>
+          <div class="input-wrap">
+            
+            <input type="password" id="cpw" name="confirm_password" placeholder="Re-enter password" required />
+          </div>
+        </div>
+
+        <!-- Terms -->
+        <label class="check-row">
+          <input type="checkbox" name="terms" required />
+          I agree to the <a href="#">Terms of Service</a>&nbsp;and&nbsp;<a href="#">Privacy Policy</a>
+        </label>
+
+        <button type="submit" class="btn-submit">Create Account →</button>
+
+        <div class="divider">or continue with</div>
+        <div class="socials">
+          <a href="#" class="btn-social">
+            Google
+          </a>
+          <a href="#" class="btn-social">
+            GitHub
+          </a>
+        </div>
+
+      </form>
+
+      <div class="extra">
+        <p>Already have an account? <a href="Login.html">Log in</a></p>
+      </div>
+    </div>
+
+    <!-- Ticker -->
+    <div class="ticker">
+      <div class="ticker-inner" id="ticker"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const pw   = document.getElementById('pw');
+    const cpw  = document.getElementById('cpw');
+    const segs = ['s1','s2','s3','s4'].map(id => document.getElementById(id));
+    const slbl = document.getElementById('slabel');
+    const CLS  = ['','w','f','s','b'];
+    const LBLS = ['PASSWORD STRENGTH','WEAK','FAIR','STRONG','BULLETPROOF'];
+    pw.addEventListener('input', () => {
+      const v = pw.value;
+      let score = 0;
+      if (v.length >= 8)          score++;
+      if (/[A-Z]/.test(v))        score++;
+      if (/[0-9]/.test(v))        score++;
+      if (/[^A-Za-z0-9]/.test(v)) score++;
+      segs.forEach((s, i) => { s.className = 'seg' + (i < score ? ' ' + CLS[score] : ''); });
+      slbl.textContent = LBLS[score];
+    });
+    cpw.addEventListener('input', () => {
+      cpw.classList.toggle('invalid', cpw.value.length > 0 && cpw.value !== pw.value);
+    });
+    // ── Ticker ──
+    const coins = [
+      { s:'BTC',   p:'67,420.18', c:'+2.41', u:true  },
+      { s:'ETH',   p:'3,512.09',  c:'+1.87', u:true  },
+      { s:'BNB',   p:'591.34',    c:'-0.52', u:false },
+      { s:'SOL',   p:'182.77',    c:'+4.13', u:true  },
+      { s:'XRP',   p:'0.6218',    c:'-1.03', u:false },
+      { s:'ADA',   p:'0.4591',    c:'+0.78', u:true  },
+      { s:'DOGE',  p:'0.1624',    c:'+5.22', u:true  },
+      { s:'MATIC', p:'0.8834',    c:'-1.44', u:false },
+    ];
+    document.getElementById('ticker').innerHTML =
+      [...coins, ...coins].map(c =>
+        `<span class="ticker-item">${c.s} $${c.p} <span class="${c.u?'up':'dn'}">${c.c}%</span></span>`
+      ).join('');
+  </script>
+  <script>
+const params = new URLSearchParams(window.location.search);
+
+// SUCCESS
+if (params.get("success") === "registered") {
+  alert("🎉 Sign up successful! You can now log in.");
+}
+
+// ERRORS
+if (params.get("error") === "user_exists") {
+  alert("⚠️ User already exists!");
+}
+
+if (params.get("error") === "password_mismatch") {
+  alert("❌ Passwords do not match!");
+}
+
+if (params.get("error") === "server") {
+  alert("🚨 Something went wrong. Try again!");
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<script>
+  VANTA.NET({
+    el: "body",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.0,
+    scaleMobile: 1.0,
+
+    // 🔥 Customize for crypto theme
+    color: 0xa098c7,        // neon cyan
+    backgroundColor: 0x0b0f1a, // dark background
+    points: 12.0,
+    maxDistance: 22.0,
+    spacing: 18.0
+  });
+</script> 
+</body>
+</html>
